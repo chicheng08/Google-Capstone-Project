@@ -30,7 +30,7 @@ library(ggplot2)
 getwd() #displays your working directory
 setwd("C:\\Users\\kenun\\OneDrive\\Desktop\\Google_Data_ Analytics\\Cyclisticist Data\\csv_files") #sets your working directory to the *.csv files
 
-# Loading all the csv files of last 12 months
+##  Loading all the csv files of last 12 months ## 
 df1 = read_csv("202106-divvy-tripdata.csv")
 df2 = read_csv("202107-divvy-tripdata.csv")
 df3 = read_csv("202108-divvy-tripdata.csv")
@@ -45,7 +45,7 @@ df11 = read_csv("202204-divvy-tripdata.csv")
 df12 = read_csv("202205-divvy-tripdata.csv")
 nrow(df1)
 
-################################################# Column specification  #################################################
+## Column specification ##
 #Delimiter: ","
 #chr  (9): ride_id, rideable_type, started_at, ended_at, start_station_name, start_station_id, end_station_name, end_station_id, member_casual
 #dbl  (5): day_of_week, start_lat, start_lng, end_lat, end_lng
@@ -77,13 +77,13 @@ cols_condense(s)
 
 show_col_types = FALSE
 
-################################################# Data Cleaning #################################################
+## Data Cleaning ##
 # 1)Concatenating all the CSVs into a single dataframe
 binded_df <- rbind(df1, df2, df3, df4, df5, df6, df7, df8, df9, df10, df11, df12)
 View(binded_df)
 
 
-# 2)Removing any empty rows or columns present
+## 2)Removing any empty rows or columns present
 binded_df <- remove_empty(binded_df, which=c("cols"))
 binded_df <- remove_empty(binded_df, which=c("rows"))
 
@@ -94,11 +94,11 @@ dim(binded_df)
 glimpse(binded_df)
 summary(binded_df)
 
-# 3)count() returns unique values of the variable passed
+## 3)count() returns unique values of the variable passed
 binded_df %>% 
   count(start_station_name)
 
-# 4)omitting NA values in the entire dataframe
+## 4)omitting NA values in the entire dataframe
 new_binded_df <- na.omit(binded_df)
 
 # dimensions and summary of new dataframe
@@ -107,7 +107,7 @@ dim(binded_df)
 glimpse(new_binded_df)
 summary(new_binded_df)
 
-# 5)Checking for missing values
+## 5)Checking for missing values
 count(filter(new_binded_df, start_station_name==''),start_station_name, member_casual,sort=TRUE)
 
 new_binded_df$started_at <- as.POSIXct(new_binded_df$started_at, "%Y-%m-%d %H:%M:%S")
@@ -115,12 +115,12 @@ new_binded_df$ended_at <- as.POSIXct(new_binded_df$ended_at, "%Y-%m-%d %H:%M:%S"
 
 glimpse(new_binded_df)
 
-# 6)Removing duplicates
+## 6)Removing duplicates
 print(nrow(new_binded_df))
 new_binded_df_no_dups <- new_binded_df[!duplicated(new_binded_df$ride_id), ]
 print(nrow(new_binded_df_no_dups))
 
-############################################### Data Manipulation ##############################################
+## Data Manipulation ##
 
 # Creating new features to understand the data better
 # Starting with
@@ -153,7 +153,7 @@ glimpse(clean_df)
 View(clean_df)
 
 
-################################################## Data Analysis ##############################################
+## Data Analysis ##
 
 # 1)We can start by comparing the number of members and casual riders
 df <- clean_df
